@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Pokemon Game</string>
+    <string name="home">Home</string>
+    <string name="scales">Compare</string>
+    <string name="retry">Retry</string>
+
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_connection_message">Failed to load data pokemon from service, please check your internet connection then try again</string>
+    <string name="pokemon_bottom_sheet_title">Choose Pokemon</string>
+
+    <string name="placeholder_image">placeholder image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="back">Back</string>
+    <string name="pokemon_statistic">Statistic</string>
+    <string name="character_information">Character Information</string>
+    <string name="abilities">Abilities</string>
+    <string name="select_pokemon">Select Pokemon</string>
+    <string name="vs">VS</string>
+    <string name="select_pokemon_instruction">Click to select or change pokemon character</string>
+    <string name="pokemon_1">Pokemon 1</string>
+    <string name="pokemon_2">Pokemon 2</string>
+</resources>

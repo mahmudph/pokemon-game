@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c8edcb"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.detail.PokemonDetailFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/pokemon_profile_title"
+                style="@style/PokemonSectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/character_information"
+                android:textAlignment="center" />
+
+            <RelativeLayout
+                android:id="@+id/pokemon_character"
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/pokemon_info_section"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <View
+                        android:id="@+id/background_circle"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:background="@drawable/pokemon_charachter_background" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/pokemon_image"
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:contentDescription="@string/placeholder_image"
+                    tools:src="@drawable/pokemon" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/pokemon_info_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/pokemon_name"
+                    style="@style/PokemonTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"
+                    tools:text="Bulbasaur" />
+
+                <TextView
+                    android:id="@+id/pokemon_types"
+                    style="@style/Subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    tools:text="Types: Grass, Electrics" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="12dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/height"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/pokemon_height"
+                            style="@style/Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            tools:text="8" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/weight"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/pokemon_weight"
+                            style="@style/Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            tools:text="8" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pokemon_state_title"
+                style="@style/PokemonSectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pokemon_statistic"
+                android:textAlignment="center" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp" />
+
+            <FrameLayout
+                android:id="@+id/pokemon_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="12dp"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/pokemon_ability_title"
+                style="@style/PokemonSectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/abilities"
+                android:textAlignment="center" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp" />
+
+            <LinearLayout
+                android:id="@+id/pokemon_abilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:accessibilityLiveRegion="polite"
+                    android:background="@android:color/transparent"
+                    app:tabMode="scrollable" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/tabs_views_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/pokemon_list_error"
+            layout="@layout/pokemon_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/pokemon_list_loading"
+            layout="@layout/pokemon_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
