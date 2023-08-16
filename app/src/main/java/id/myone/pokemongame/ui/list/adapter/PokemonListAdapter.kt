@@ -7,6 +7,7 @@ package id.myone.pokemongame.ui.list.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -17,6 +18,7 @@ import id.myone.pokemongame.BuildConfig
 import id.myone.pokemongame.R
 import id.myone.pokemongame.databinding.PokemonItemBinding
 import id.myone.pokemongame.extensions.getIdFromUrl
+import id.myone.pokemongame.extensions.isDarkMode
 import id.myone.pokemongame.extensions.ucFirst
 import id.myone.pokemongame.models.PokemonData
 import id.myone.pokemongame.utils.ImageProcessing
@@ -69,10 +71,15 @@ class PokemonListAdapter(
                 binding.image
             )
 
-            binding.apply {
+            val isDarkMode = context.resources.isDarkMode()
 
-                setSelectedItem(R.color.white)
-                setSelectedTextColor(R.color.black)
+            val backgroundColor = if (isDarkMode) { R.color.grey } else R.color.white
+            val textOnBackground = if (isDarkMode) { R.color.white } else R.color.black
+
+            setSelectedItem(backgroundColor)
+            setSelectedTextColor(textOnBackground)
+
+            binding.apply {
                 /**
                  * when selected pokemon name is same with current pokemon name
                  * then set the background as selected

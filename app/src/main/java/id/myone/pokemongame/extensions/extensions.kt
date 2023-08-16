@@ -5,6 +5,10 @@
 
 package id.myone.pokemongame.extensions
 
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
+import androidx.appcompat.app.AppCompatDelegate
 import id.myone.pokemongame.common.pokemonStateTypes
 import id.myone.pokemongame.models.AbilityData
 import id.myone.pokemongame.models.AbilityResponse
@@ -60,4 +64,9 @@ fun PokemonDetail.mapToPokemonState(): Pair<ArrayList<String>, ArrayList<Int>> {
     }
 
     return Pair(ArrayList(labels), ArrayList(data))
+}
+
+
+fun Resources.isDarkMode(): Boolean {
+    return (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 }

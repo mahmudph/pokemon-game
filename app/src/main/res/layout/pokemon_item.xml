@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="4dp"
-    android:background="@drawable/bg_pokemon_list"
-    android:backgroundTint="@color/white"
     android:orientation="horizontal"
     android:padding="16dp"
     app:contentPadding="16dp">
