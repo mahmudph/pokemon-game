@@ -65,6 +65,7 @@ class PokemonListFragment : BaseFragment<PokemonListFragmentBinding>() {
                     is LoadState.Loading -> showLoading()
                     is LoadState.Error -> {
 
+                        binding.pokemonListSwipeRefreshLayout.isRefreshing = false
                         binding.pokemonListRecyclerView.visibility = View.GONE
                         binding.pokemonListError.root.visibility = View.VISIBLE
 
