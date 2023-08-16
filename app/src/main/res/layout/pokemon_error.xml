@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="?colorOnBackground"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
@@ -14,9 +13,8 @@
         android:id="@+id/error_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:background="?colorOnBackground"
-        android:contentDescription="@string/placeholder_image"
-        app:srcCompat="@drawable/error" />
+        android:background="@drawable/error"
+        android:contentDescription="@string/placeholder_image" />
 
     <TextView
         android:id="@+id/error_title"
