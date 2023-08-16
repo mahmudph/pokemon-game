@@ -30,4 +30,4 @@ Berikut ini endpoint yang digunakan dalam aplikasi ini
 ## Download Sample App
 
 Untuk mendownload sample app bisa di download melalul tautan berikut ini
-[Download PokeApp - Mahmud](https://www.dropbox.com/scl/fi/tfw9112yssmyv5g5p3fdj/PokeApp-Mahmud.apk?rlkey=vf4jmvhvzjn1w1q4mbscfg0gg&dl=0)
+[Download PokeApp - Mahmud](https://www.dropbox.com/scl/fi/gztg3h5b4hfb25x70eedu/PokeApp-Mahmud.apk?rlkey=naxa89j9t7gg80sp4czu1j41e&dl=0)
