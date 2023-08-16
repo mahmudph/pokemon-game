@@ -12,6 +12,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:background="?android:colorBackground"
             android:id="@+id/pokemon_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,6 +24,6 @@
         android:id="@+id/pokemon_list_error"
         layout="@layout/pokemon_error"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

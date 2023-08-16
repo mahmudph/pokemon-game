@@ -7,15 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
+import id.myone.pokemongame.R
 import id.myone.pokemongame.common.availableColor
 import id.myone.pokemongame.common.pokemonStateTypes
 import id.myone.pokemongame.databinding.FragmentBarChartBinding
+import id.myone.pokemongame.extensions.isDarkMode
 
 class BarChartFragment : Fragment() {
 
@@ -101,7 +104,6 @@ class BarChartFragment : Fragment() {
                 ).apply {
                     color = availableColor[index]
                 }
-
                 barDataSetTemp.add(dataset)
             }
         }
@@ -110,8 +112,11 @@ class BarChartFragment : Fragment() {
     }
 
     private fun prepareChartData(dataset: BarData) {
+        val color = getSystemTextColor()
         binding.chart.apply {
+
             data = dataset
+
             if ((barChartParam?.data?.size ?: 0) > 1) {
                 data.barWidth = 0.3f
                 data.isHighlightEnabled = false
@@ -120,16 +125,28 @@ class BarChartFragment : Fragment() {
                 groupBars(0f, 0.3f, 0f)
             }
 
+            xAxis.textColor = color
             setChartBarLegend()
+            setBorderColor(color)
+            setGridBackgroundColor(color)
+            data.setValueTextColor(color)
+
             xAxis.setCenterAxisLabels(true)
+
             invalidate()
         }
     }
 
+    private fun getSystemTextColor(): Int {
+        val isDarkMode = requireContext().resources.isDarkMode()
+        val color = if (isDarkMode) R.color.white else R.color.black
+        return ContextCompat.getColor(requireContext(), color)
+    }
     private fun setChartBarLegend() {
+
         binding.chart.legend.apply {
             isEnabled = true
-            textColor = Color.BLACK
+            textColor = getSystemTextColor()
             textSize = 10f
             yEntrySpace = 0f
             verticalAlignment = Legend.LegendVerticalAlignment.TOP

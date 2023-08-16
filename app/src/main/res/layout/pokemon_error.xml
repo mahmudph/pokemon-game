@@ -4,19 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_marginBottom="30dp"
-    android:layout_marginHorizontal="16dp"
-    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:paddingBottom="30dp">
 
     <ImageView
         android:id="@+id/error_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:contentDescription="@string/placeholder_image"
-        app:srcCompat="@drawable/error" />
+        android:background="@drawable/error"
+        android:contentDescription="@string/placeholder_image" />
 
     <TextView
         android:id="@+id/error_title"
