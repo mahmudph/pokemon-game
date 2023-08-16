@@ -5,6 +5,7 @@
     <string name="retry">Retry</string>
 
     <string name="no_internet_connection">No internet connection</string>
+    <string name="fetch_data_pokemon_list_error">Failed to load pokemon data</string>
     <string name="no_internet_connection_message">Failed to load data pokemon from service, please check your internet connection then try again</string>
     <string name="pokemon_bottom_sheet_title">Choose Pokemon</string>
 
