@@ -9,7 +9,6 @@
     <string name="pokemon_bottom_sheet_title">Choose Pokemon</string>
 
     <string name="placeholder_image">placeholder image</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
@@ -18,11 +17,11 @@
     <string name="information">Information</string>
     <string name="abilities">Abilities</string>
     <string name="select_pokemon">Select Pokemon</string>
-    <string name="vs">VS</string>
     <string name="select_pokemon_instruction">Click to select or change pokemon character</string>
     <string name="pokemon_1">Pokemon 1</string>
     <string name="pokemon_2">Pokemon 2</string>
-    <string name="pokemon_already_selected">Pokemon already selected</string>
+    <string name="pokemon_already_selected">The character item should be deference, please select another character</string>
     <string name="character">Character</string>
-    <string name="loading">Loading…</string>
+    <string name="compare_result">Compare Result</string>
+    <string name="comparation_message">Want to get result of the comparation between character.?, Please Select Two Pokemon to get score</string>
 </resources>

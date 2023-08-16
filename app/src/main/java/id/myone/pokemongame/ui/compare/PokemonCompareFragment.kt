@@ -21,6 +21,7 @@ class PokemonCompareFragment : BaseFragment<FragmentPokemonCompareBinding>() {
             binding.pokemonSection1.id -> openPokemonList(
                 SELECTED_POKEMON_ONE_KEY, viewModel.selectedPokemonOneName.value,
             )
+
             binding.pokemonSection2.id -> openPokemonList(
                 SELECTED_POKEMON_TWO_KEY, viewModel.selectedPokemonTwoName.value,
             )
@@ -32,17 +33,22 @@ class PokemonCompareFragment : BaseFragment<FragmentPokemonCompareBinding>() {
             Log.i(this.javaClass.name, "Selected Pokemon: $name")
             when (key) {
                 SELECTED_POKEMON_ONE_KEY -> {
-                    if (viewModel.selectedPokemonTwoName.value != name) viewModel.getPokemonDetailOne(name)
+                    if (viewModel.selectedPokemonTwoName.value != name) viewModel.getPokemonDetailOne(
+                        name
+                    )
                     else showSnackBar(getString(R.string.pokemon_already_selected))
                 }
 
                 SELECTED_POKEMON_TWO_KEY -> {
-                    if (viewModel.selectedPokemonOneName.value != name) viewModel.getPokemonDetailTwo(name)
+                    if (viewModel.selectedPokemonOneName.value != name) viewModel.getPokemonDetailTwo(
+                        name
+                    )
                     else showSnackBar(getString(R.string.pokemon_already_selected))
                 }
             }
         }
     }
+
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,7 +89,7 @@ class PokemonCompareFragment : BaseFragment<FragmentPokemonCompareBinding>() {
 
         observableSimpleData(viewModel.comparePokemonResult) { result ->
             if (result != null) {
-                binding.pokemonCompareChart.visibility = View.VISIBLE
+                setPokemonChartVisibility(View.VISIBLE)
                 val fragment = BarChartFragment.newInstance().apply {
                     setChartBarData(
                         BarChartParam(
@@ -97,8 +103,17 @@ class PokemonCompareFragment : BaseFragment<FragmentPokemonCompareBinding>() {
                     commit()
                 }
             } else {
-                binding.pokemonCompareChart.visibility = View.GONE
+                setPokemonChartVisibility(View.GONE)
             }
+        }
+    }
+
+    private fun setPokemonChartVisibility(visibility: Int) {
+        binding.apply {
+            pokemonCompareChart.visibility = visibility
+            if (visibility == View.VISIBLE) {
+                pokemonCompareMessage.visibility = View.GONE
+            } else pokemonCompareMessage.visibility = View.VISIBLE
         }
     }
 
