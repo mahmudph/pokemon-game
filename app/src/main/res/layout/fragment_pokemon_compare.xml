@@ -113,7 +113,6 @@
                             android:layout_height="80dp"
                             android:layout_marginVertical="12dp"
                             android:contentDescription="@string/placeholder_image"
-                            android:scaleType="centerInside"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
