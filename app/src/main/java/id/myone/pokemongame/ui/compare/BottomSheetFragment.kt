@@ -98,6 +98,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadStates ->
                 if (loadStates.refresh is LoadState.Error) {
+                    dismiss()
                     Snackbar.make(binding.root, "Failure to get pokemon list", Snackbar.LENGTH_SHORT).show()
                 }
                 Log.i(this.javaClass.name, loadStates.toString())

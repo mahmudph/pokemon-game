@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_margin="16dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -19,7 +19,6 @@
             android:layout_gravity="top"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,10 +130,53 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/pokemon_compare_chart"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/PokemonSectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8dp"
+                    android:text="@string/compare_result"
+                    android:textAlignment="center" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="12dp">
+
+                    <FrameLayout
+                        android:id="@+id/pokemon_compare_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginVertical="12dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/pokemon_compare_message"
+                        style="@style/TextNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:text="@string/comparation_message"
+                        android:textAlignment="center" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
