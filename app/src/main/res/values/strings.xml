@@ -22,4 +22,5 @@
     <string name="select_pokemon_instruction">Click to select or change pokemon character</string>
     <string name="pokemon_1">Pokemon 1</string>
     <string name="pokemon_2">Pokemon 2</string>
+    <string name="pokemon_already_selected">Pokemon already selected</string>
 </resources>

@@ -21,7 +21,6 @@ import id.myone.pokemongame.extensions.ucFirst
 import id.myone.pokemongame.models.PokemonData
 import id.myone.pokemongame.utils.ImageProcessing
 
-
 class PokemonListAdapter(
     private val context: Context,
     private val imageProcessing: ImageProcessing,

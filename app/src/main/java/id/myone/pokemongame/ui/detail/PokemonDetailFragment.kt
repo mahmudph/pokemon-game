@@ -2,51 +2,34 @@ package id.myone.pokemongame.ui.detail
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import id.myone.pokemongame.databinding.FragmentPokemonDetailBinding
 import id.myone.pokemongame.extensions.mapToPokemonState
 import id.myone.pokemongame.extensions.ucFirst
 import id.myone.pokemongame.models.PokemonDetail
 import id.myone.pokemongame.models.PokemonStateItem
-import id.myone.pokemongame.ui.barchart.BarChartFragment
-import id.myone.pokemongame.ui.barchart.BarChartParam
+import id.myone.pokemongame.ui.BaseFragment
+import id.myone.pokemongame.ui.utils.barchart.BarChartFragment
+import id.myone.pokemongame.ui.utils.barchart.BarChartParam
 import id.myone.pokemongame.ui.detail.tabs.AbilityTabAdapter
-import id.myone.pokemongame.utils.ImageProcessing
-import id.myone.pokemongame.utils.UIState
 import id.myone.pokemongame.viewmodel.DetailViewModel
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class PokemonDetailFragment : Fragment() {
-    private lateinit var binding: FragmentPokemonDetailBinding
+class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
     private lateinit var abilityTabAdapter: AbilityTabAdapter
 
     private val detailViewModel by inject<DetailViewModel>()
-    private val imageProcessing by inject<ImageProcessing>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun createBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentPokemonDetailBinding {
+        return FragmentPokemonDetailBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val pokeName = PokemonDetailFragmentArgs.fromBundle(requireArguments()).pokemonName
-        getPokemonDetailByName(pokeName)
-    }
+    override fun setUpView() {}
 
     private fun setupTabLayoutForAbilityDescView(pokemon: PokemonDetail) {
         abilityTabAdapter = AbilityTabAdapter(pokemon.abilities, childFragmentManager, lifecycle)
@@ -59,36 +42,16 @@ class PokemonDetailFragment : Fragment() {
         }
     }
 
-
-    private fun getPokemonDetailByName(name: String) {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                detailViewModel.result.collect { result ->
-                    result.getContentIfNotHandled()?.let { state ->
-                        when (state) {
-                            is UIState.Loading -> {
-
-                            }
-
-                            is UIState.Error -> {
-
-                            }
-
-                            is UIState.Success -> {
-                                val (label, data) = state.data.mapToPokemonState()
-                                provideSetupBarChartConfig(label, data, state.data.name)
-                                providePokemonCharacterData(state.data)
-                                setupTabLayoutForAbilityDescView(state.data)
-                            }
-
-                            else -> {}
-                        }
-                    }
-                }
-            }
+    override fun observableViewModel() {
+        observableData(detailViewModel.result) { result ->
+            val (label, data) = result.mapToPokemonState()
+            provideSetupBarChartConfig(label, data, result.name)
+            providePokemonCharacterData(result)
+            setupTabLayoutForAbilityDescView(result)
         }
 
-        detailViewModel.loadPokemonByName(name)
+        val pokeName = PokemonDetailFragmentArgs.fromBundle(requireArguments()).pokemonName
+        detailViewModel.loadPokemonByName(pokeName)
     }
 
     @SuppressLint("SetTextI18n")
