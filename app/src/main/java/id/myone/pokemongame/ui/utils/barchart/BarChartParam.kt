@@ -1,4 +1,4 @@
-package id.myone.pokemongame.ui.barchart
+package id.myone.pokemongame.ui.utils.barchart
 
 import id.myone.pokemongame.models.PokemonStateItem
 
