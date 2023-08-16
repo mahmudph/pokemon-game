@@ -10,6 +10,7 @@ import android.widget.ImageView
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import id.myone.pokemongame.R
 
 
 class ImageProcessing {
@@ -23,6 +24,8 @@ class ImageProcessing {
         val imageReq = ImageRequest.Builder(context)
             .data(pokemonImageUri)
             .crossfade(true)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.error)
             .target(imageView)
             .build()
         loader.enqueue(imageReq)
