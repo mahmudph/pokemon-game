@@ -3,7 +3,11 @@ package id.myone.pokemongame.ui.detail
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.tabs.TabLayoutMediator
 import id.myone.pokemongame.databinding.FragmentPokemonDetailBinding
 import id.myone.pokemongame.extensions.mapToPokemonState
@@ -14,7 +18,12 @@ import id.myone.pokemongame.ui.BaseFragment
 import id.myone.pokemongame.ui.utils.barchart.BarChartFragment
 import id.myone.pokemongame.ui.utils.barchart.BarChartParam
 import id.myone.pokemongame.ui.detail.tabs.AbilityTabAdapter
+import id.myone.pokemongame.utils.Event
+import id.myone.pokemongame.utils.UIState
 import id.myone.pokemongame.viewmodel.DetailViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
@@ -42,6 +51,40 @@ class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
         }
     }
 
+    override fun <T> observableData(flow: Flow<Event<UIState<T>>>, onSuccess: (T) -> Unit) {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collect { result ->
+                    result.getContentIfNotHandled()?.let { state ->
+                        when(state) {
+                            is UIState.Loading -> {
+                                showLoading()
+                                setErrorVisibility(View.GONE)
+                            }
+
+                            is UIState.Success -> {
+                                hideLoading()
+                                setErrorVisibility(View.GONE)
+                                onSuccess(state.data)
+                            }
+
+                            is UIState.Error -> {
+                                hideLoading()
+                                showSnackBar(state.message)
+                                setErrorVisibility(View.VISIBLE)
+                            }
+                            else -> throw UnknownError("Unknown error")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setErrorVisibility(visibility: Int) {
+        binding.pokemonListError.root.visibility = visibility
+    }
+
     override fun observableViewModel() {
         observableData(detailViewModel.result) { result ->
             val (label, data) = result.mapToPokemonState()
@@ -63,14 +106,19 @@ class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
             pokemonName.text = pokemon.name.ucFirst()
             pokemonHeight.text = pokemon.height.toString()
             pokemonWeight.text = pokemon.weight.toString()
-            pokemonImage.setImageURI(Uri.parse(pokemon.sprites.other.dreamWorld.frontDefault))
             pokemonTypes.text = "Type:" + types.joinToString(", ")
         }
 
         imageProcessing.loadImage(
             requireContext(),
             pokemon.sprites.other.dreamWorld.frontDefault,
-            binding.pokemonImage
+            binding.pokemonFront
+        )
+
+        imageProcessing.loadImage(
+            requireContext(),
+            pokemon.sprites.versions.generationI.redBlue.frontDefault,
+            binding.pokemonDreamWordVersion
         )
     }
 
