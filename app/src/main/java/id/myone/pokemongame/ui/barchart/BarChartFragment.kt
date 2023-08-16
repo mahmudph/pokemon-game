@@ -1,27 +1,25 @@
 package id.myone.pokemongame.ui.barchart
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
+import id.myone.pokemongame.common.availableColor
 import id.myone.pokemongame.common.pokemonStateTypes
 import id.myone.pokemongame.databinding.FragmentBarChartBinding
 
 class BarChartFragment : Fragment() {
 
     private lateinit var binding: FragmentBarChartBinding
-
-//    private var labels = emptyList<String>()
-//    private var data = emptyList<Int>()
-
     private var barChartParam: BarChartParam? = null
 
     override fun onCreateView(
@@ -54,26 +52,25 @@ class BarChartFragment : Fragment() {
             setDrawGridBackground(false)
 
             description.isEnabled = false
-
-            animateXY(1000, 1000)
-
-            legend.isEnabled = false
             isClickable = false
 
             xAxis.apply {
                 valueFormatter = object : ValueFormatter() {
                     override fun getFormattedValue(value: Float): String {
-                        Log.i(this.javaClass.name, "Value: ${pokemonStateTypes[value.toInt()]}")
-                        return pokemonStateTypes[value.toInt()]
+                        val position = value.toInt()
+                        if (position >= 0 && position < pokemonStateTypes.size) {
+                            Log.i(this.javaClass.name, "Value: ${pokemonStateTypes[value.toInt()]}")
+                            return pokemonStateTypes[position]
+                        }
+                        return ""
                     }
                 }
 
-                textSize = 12f
-                labelCount = pokemonStateTypes.size
+                textSize = 10f
                 labelRotationAngle = 45f
-                xAxis.granularity = 1f
                 position = XAxis.XAxisPosition.BOTTOM
-                setDrawLabels(true)
+                labelCount = pokemonStateTypes.size
+                animateXY(1000, 1000)
             }
         }
     }
@@ -98,7 +95,14 @@ class BarChartFragment : Fragment() {
                     )
                 }
 
-                barDataSetTemp.add(BarDataSet(barMapEntry["$index"]!!.toList(), barData[index].name))
+                val dataset = BarDataSet(
+                    barMapEntry["$index"]!!.toList(),
+                    barData[index].name
+                ).apply {
+                    color = availableColor[index]
+                }
+
+                barDataSetTemp.add(dataset)
             }
         }
 
@@ -106,9 +110,33 @@ class BarChartFragment : Fragment() {
     }
 
     private fun prepareChartData(dataset: BarData) {
-        dataset.setValueTextSize(12f)
-        binding.chart.data = dataset
-        binding.chart.invalidate()
+        binding.chart.apply {
+            data = dataset
+            if ((barChartParam?.data?.size ?: 0) > 1) {
+                data.barWidth = 0.3f
+                data.isHighlightEnabled = false
+                xAxis.axisMinimum  = -0.5f
+                xAxis.mAxisMaximum = dataset.entryCount - 0.5f + 0.3f * (dataset.entryCount - 1)
+                groupBars(0f, 0.3f, 0f)
+            }
+
+            setChartBarLegend()
+            xAxis.setCenterAxisLabels(true)
+            invalidate()
+        }
+    }
+
+    private fun setChartBarLegend() {
+        binding.chart.legend.apply {
+            isEnabled = true
+            textColor = Color.BLACK
+            textSize = 10f
+            yEntrySpace = 0f
+            verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+            orientation = Legend.LegendOrientation.HORIZONTAL
+            setDrawInside(true)
+        }
     }
 
     companion object {

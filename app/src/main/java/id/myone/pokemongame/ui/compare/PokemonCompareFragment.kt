@@ -21,7 +21,6 @@ import id.myone.pokemongame.utils.ImageProcessing
 import id.myone.pokemongame.utils.UIState
 import id.myone.pokemongame.viewmodel.CompareViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -49,8 +48,22 @@ class PokemonCompareFragment : Fragment() {
     private val selectedPokemonListener = object : BottomSheetFragment.OnSelectedPokemonListener {
         override fun onSelectedPokemon(name: String, key: String) {
             when (key) {
-                SELECTED_POKEMON_ONE_KEY -> viewModel.getPokemonDetailOne(name)
-                SELECTED_POKEMON_TWO_KEY -> viewModel.getPokemonDetailTwo(name)
+                SELECTED_POKEMON_ONE_KEY -> {
+                    if (viewModel.selectedPokemonTwoName.value != name) {
+                        viewModel.getPokemonDetailOne(name)
+                    } else {
+                        Snackbar.make(binding.root, "Pokemon already selected", Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                SELECTED_POKEMON_TWO_KEY ->     {
+                    if (viewModel.selectedPokemonOneName.value != name) {
+                        viewModel.getPokemonDetailTwo(name)
+                    } else {
+                        Snackbar.make(binding.root, "Pokemon already selected", Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+                }
             }
             Log.i(this.javaClass.name, "Selected Pokemon: $name")
         }
@@ -112,24 +125,24 @@ class PokemonCompareFragment : Fragment() {
 
     private fun observablePokemonDetails() {
         observablePokemonDetail(viewModel.pokemonDetailOne) { result ->
-            Log.i(this.javaClass.name, "Pokemon Detail Two : $result")
+            Log.i(this.javaClass.name, "Pokemon Detail One : $result")
             binding.apply {
-                section2Name.text = result.name.ucFirst()
+                section1Name.text = result.name.ucFirst()
                 imageProcessing.loadImage(
                     requireContext(),
-                    result.sprites.other.dreamWorld.frontDefault,
+                    result.sprites.versions.generationI.redBlue.frontDefault,
                     pokemon1Image
                 )
             }
         }
 
         observablePokemonDetail(viewModel.pokemonDetailTwo) { result ->
-            Log.i(this.javaClass.name, "Pokemon Detail One : $result")
+            Log.i(this.javaClass.name, "Pokemon Detail Two : $result")
             binding.apply {
-                section1Name.text = result.name.ucFirst()
+                section2Name.text = result.name.ucFirst()
                 imageProcessing.loadImage(
                     requireContext(),
-                    result.sprites.other.dreamWorld.frontDefault,
+                    result.sprites.versions.generationI.redBlue.frontDefault,
                     pokemon2Image
                 )
             }
