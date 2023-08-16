@@ -13,7 +13,7 @@ import id.myone.pokemongame.models.PokemonDetailResponse
 
 
 fun String.getIdFromUrl(): String {
-    val split = this.split("/")
+    val split = split("/")
     return split[split.size - 2]
 }
 
@@ -27,24 +27,24 @@ fun String.ucFirst(): String {
 
 fun AbilityResponse.toAbilityData(): AbilityData {
     return AbilityData(
-        id = this.id,
-        name = this.name,
-        flavorTextEntries = this.flavorTextEntries.filter {
+        id = id,
+        name = name,
+        flavorTextEntries = flavorTextEntries.filter {
             it.language.name == "en"
-        }
+        }.distinct()
     )
 }
 
 fun PokemonDetailResponse.toPokemonDetail(abilitiesData: List<AbilityData>): PokemonDetail {
     return PokemonDetail(
-        id = this.id,
-        name = this.name,
-        height = this.height,
-        weight = this.weight,
+        id = id,
+        name = name,
+        height = height,
+        weight = weight,
         abilities = abilitiesData,
-        sprites = this.sprites,
-        stats = this.stats,
-        types = this.types,
+        sprites = sprites,
+        stats = stats,
+        types = types,
     )
 }
 
