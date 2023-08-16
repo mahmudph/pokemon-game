@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
             toolbar.apply {
                 title = when (dest.id) {
                     R.id.detail -> "Detail"
+                    R.id.compare -> "Compare Character"
                     else -> "Game Pokemon - Mahmud"
                 }
 
