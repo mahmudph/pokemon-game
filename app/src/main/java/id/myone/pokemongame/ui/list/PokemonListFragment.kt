@@ -1,6 +1,8 @@
 package id.myone.pokemongame.ui.list
 
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.myone.pokemongame.R
 import id.myone.pokemongame.databinding.PokemonListFragmentBinding
 import id.myone.pokemongame.ui.BaseFragment
 import id.myone.pokemongame.ui.list.adapter.PokemonListAdapter
@@ -39,6 +42,12 @@ class PokemonListFragment : BaseFragment<PokemonListFragmentBinding>() {
         return PokemonListFragmentBinding.inflate(inflater, container, false)
     }
 
+    private fun hideLoadingWithDelay() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            hideLoading()
+        }, 1000)
+    }
+
     override fun setUpView() {
         adapter = PokemonListAdapter(requireContext(), imageProcessing)
         binding.pokemonListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -52,13 +61,23 @@ class PokemonListFragment : BaseFragment<PokemonListFragmentBinding>() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadStates ->
-                if (loadStates.refresh is LoadState.Error) {
-                    binding.pokemonListRecyclerView.visibility = View.GONE
-                    binding.pokemonListError.root.visibility = View.VISIBLE
-                } else {
-                    binding.pokemonListRecyclerView.visibility = View.VISIBLE
-                    binding.pokemonListError.root.visibility = View.GONE
-                    binding.pokemonListSwipeRefreshLayout.isRefreshing = false
+                when (loadStates.refresh) {
+                    is LoadState.Loading -> showLoading()
+                    is LoadState.Error -> {
+
+                        binding.pokemonListRecyclerView.visibility = View.GONE
+                        binding.pokemonListError.root.visibility = View.VISIBLE
+
+                        showSnackBar(getString(R.string.fetch_data_pokemon_list_error))
+                        hideLoadingWithDelay()
+                    }
+                    else -> {
+                        binding.pokemonListRecyclerView.visibility = View.VISIBLE
+                        binding.pokemonListError.root.visibility = View.GONE
+
+                        binding.pokemonListSwipeRefreshLayout.isRefreshing = false
+                        hideLoadingWithDelay()
+                    }
                 }
             }
         }
@@ -67,6 +86,7 @@ class PokemonListFragment : BaseFragment<PokemonListFragmentBinding>() {
             adapter.refresh()
         }
     }
+
     override fun observableViewModel() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
