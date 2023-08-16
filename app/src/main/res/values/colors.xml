@@ -4,13 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#5dbd62</color>
 
-    <color name="bg_pokemon_1">#c8edcb</color>
-    <color name="bg_pokemon_2">#e6fefe</color>
-    <color name="bg_pokemon_3">#e5e5ff</color>
-
-    <color name="bg_pokemon_circle_1">#E6FEFE</color>
-    <color name="bg_pokemon_circle_2">#EFFFF0</color>
-    <color name="bg_pokemon_circle_3">#C9C7EE</color>
+    <color name="bg_pokemon_circle">#C9C7EE</color>
 
     <color name="bg_loading">#4E4C51</color>
     <color name="green_m300">#77C77B</color>
