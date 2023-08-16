@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 title = when (dest.id) {
                     R.id.detail -> "Detail"
                     R.id.compare -> "Compare Character"
-                    else -> "Game Pokemon - Mahmud"
+                    else -> "PokeApp - Mahmud"
                 }
 
                 if (R.id.detail == dest.id) {
