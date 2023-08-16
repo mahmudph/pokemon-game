@@ -62,11 +62,11 @@ abstract class BaseFragment<B : ViewBinding> : Fragment(), BaseFragmentContract<
     }
 
     override fun showLoading() {
-        loadingDialog?.show(parentFragmentManager, LoadingFragment.javaClass.name)
+        loadingDialog?.show(parentFragmentManager, LoadingFragment.Companion::class.java.name)
     }
 
     override fun hideLoading() {
-        loadingDialog?.dismiss()
+        if (loadingDialog?.isVisible == true) loadingDialog?.dismiss()
     }
 
     override fun observableViewModel() {}
