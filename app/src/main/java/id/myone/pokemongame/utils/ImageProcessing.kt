@@ -16,18 +16,24 @@ import id.myone.pokemongame.R
 class ImageProcessing {
 
     fun loadImage(context: Context, pokemonImageUri: String, imageView: ImageView) {
-        val loader = ImageLoader.Builder(context)
-            .crossfade(true)
-            .components { add(SvgDecoder.Factory()) }
-            .build()
+        try {
+            val loader = ImageLoader.Builder(context)
+                .crossfade(true)
+                .components { add(SvgDecoder.Factory()) }
+                .build()
 
-        val imageReq = ImageRequest.Builder(context)
-            .data(pokemonImageUri)
-            .crossfade(true)
-            .placeholder(R.drawable.placeholder)
-            .error(R.drawable.error)
-            .target(imageView)
-            .build()
-        loader.enqueue(imageReq)
+            val imageReq = ImageRequest.Builder(context)
+                .data(pokemonImageUri)
+                .crossfade(true)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.error)
+                .target(imageView)
+                .build()
+
+            loader.enqueue(imageReq)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

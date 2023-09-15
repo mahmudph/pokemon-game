@@ -56,7 +56,7 @@ class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 flow.collect { result ->
                     result.getContentIfNotHandled()?.let { state ->
-                        when(state) {
+                        when (state) {
                             is UIState.Loading -> {
                                 showLoading()
                                 setErrorVisibility(View.GONE)
@@ -73,6 +73,7 @@ class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
                                 showSnackBar(state.message)
                                 setErrorVisibility(View.VISIBLE)
                             }
+
                             else -> throw UnknownError("Unknown error")
                         }
                     }
@@ -109,17 +110,21 @@ class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
             pokemonTypes.text = "Type:" + types.joinToString(", ")
         }
 
-        imageProcessing.loadImage(
-            requireContext(),
-            pokemon.sprites.other.dreamWorld.frontDefault,
-            binding.pokemonFront
-        )
+        pokemon.sprites.other.dreamWorld.frontDefault?.let { image ->
+            imageProcessing.loadImage(
+                requireContext(),
+                image,
+                binding.pokemonFront
+            )
+        }
 
-        imageProcessing.loadImage(
-            requireContext(),
-            pokemon.sprites.versions.generationI.redBlue.frontDefault,
-            binding.pokemonDreamWordVersion
-        )
+        pokemon.sprites.versions.generationI.redBlue.frontDefault?.let { image ->
+            imageProcessing.loadImage(
+                requireContext(),
+                image,
+                binding.pokemonDreamWordVersion
+            )
+        }
     }
 
 

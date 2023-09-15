@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class DreamWorld(
     @SerializedName("front_default")
-    val frontDefault: String,
+    val frontDefault: String?,
 )

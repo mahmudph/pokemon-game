@@ -91,7 +91,7 @@ class PokemonListAdapter(
 
                 } else root.isSelected = false
 
-                pokemonId.text = "#00$pokemonNo"
+                pokemonId.text = "#$pokemonNo"
                 title.text = data.name.ucFirst()
 
                 root.setOnClickListener { onClickListener.click(data.name) }

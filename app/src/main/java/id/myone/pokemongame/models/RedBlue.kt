@@ -15,7 +15,7 @@ data class RedBlue(
     val backTransparent: String,
 
     @SerializedName("front_default")
-    val frontDefault: String,
+    val frontDefault: String?,
 
     @SerializedName("front_gray")
     val frontGray: String,
