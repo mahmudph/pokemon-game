@@ -19,7 +19,7 @@ android {
 
         buildConfigField("String","HOST_URL", "\"https://pokeapi.co/api/v2/\"")
         buildConfigField("String", "HOST_IMAGE_URL", "\"https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/\"")
-        buildConfigField("Integer","PAGE_SIZE", "20")
+        buildConfigField("Integer","PAGE_SIZE", "25")
     }
 
     buildTypes {

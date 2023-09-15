@@ -5,8 +5,10 @@
 
 package id.myone.pokemongame.repository.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import id.myone.pokemongame.BuildConfig
 import id.myone.pokemongame.models.PokemonData
 import id.myone.pokemongame.repository.network.ApiService
 
@@ -17,7 +19,7 @@ class PokemonDataSource(
     override fun getRefreshKey(state: PagingState<Int, PokemonData>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+            anchorPage?.prevKey?.plus(BuildConfig.PAGE_SIZE) ?: anchorPage?.nextKey?.minus(BuildConfig.PAGE_SIZE)
         }
     }
 
@@ -25,12 +27,14 @@ class PokemonDataSource(
         return try {
 
             val position = params.key ?: INITIAL_PAGE
+
+            Log.i(TAG, "load: $position")
             val response = apiSource.getPokemonList(position, params.loadSize)
 
             LoadResult.Page(
                 data = response.results,
-                prevKey = if (position == INITIAL_PAGE) null else position - 1,
-                nextKey = if (response.results.isEmpty()) null else position + 1,
+                prevKey = if (position == INITIAL_PAGE) null else position - BuildConfig.PAGE_SIZE,
+                nextKey = if (response.results.isEmpty()) null else position + BuildConfig.PAGE_SIZE,
             )
         } catch (e: Exception) {
             e.printStackTrace()
@@ -39,6 +43,7 @@ class PokemonDataSource(
     }
 
     companion object {
-        private const val INITIAL_PAGE = 1
+        private const val TAG = "PokemonDataSource"
+        private const val INITIAL_PAGE = 0
     }
 }

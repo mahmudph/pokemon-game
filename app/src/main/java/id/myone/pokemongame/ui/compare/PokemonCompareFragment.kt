@@ -67,11 +67,13 @@ class PokemonCompareFragment : BaseFragment<FragmentPokemonCompareBinding>() {
             Log.i(this.javaClass.name, "Pokemon Detail One : $result")
             binding.apply {
                 section1Name.text = result.name.ucFirst()
-                imageProcessing.loadImage(
-                    requireContext(),
-                    result.sprites.versions.generationI.redBlue.frontDefault,
-                    pokemon1Image
-                )
+                result.sprites.versions.generationI.redBlue.frontDefault?.let {
+                    imageProcessing.loadImage(
+                        requireContext(),
+                        it,
+                        pokemon1Image
+                    )
+                }
             }
         }
 
@@ -79,11 +81,13 @@ class PokemonCompareFragment : BaseFragment<FragmentPokemonCompareBinding>() {
             Log.i(this.javaClass.name, "Pokemon Detail Two : $result")
             binding.apply {
                 section2Name.text = result.name.ucFirst()
-                imageProcessing.loadImage(
-                    requireContext(),
-                    result.sprites.versions.generationI.redBlue.frontDefault,
-                    pokemon2Image
-                )
+                result.sprites.versions.generationI.redBlue.frontDefault?.let {
+                    imageProcessing.loadImage(
+                        requireContext(),
+                        it,
+                        pokemon2Image
+                    )
+                }
             }
         }
 
