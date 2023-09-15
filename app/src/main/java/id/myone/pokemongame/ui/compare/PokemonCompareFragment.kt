@@ -11,10 +11,10 @@ import id.myone.pokemongame.ui.BaseFragment
 import id.myone.pokemongame.ui.utils.barchart.BarChartFragment
 import id.myone.pokemongame.ui.utils.barchart.BarChartParam
 import id.myone.pokemongame.viewmodel.CompareViewModel
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokemonCompareFragment : BaseFragment<FragmentPokemonCompareBinding>() {
-    private val viewModel by inject<CompareViewModel>()
+    private val viewModel by viewModel<CompareViewModel>()
 
     private val clickListener = View.OnClickListener { p0 ->
         when (p0?.id) {

@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,12 +20,12 @@ import id.myone.pokemongame.ui.list.adapter.PokemonListAdapter
 import id.myone.pokemongame.ui.list.adapter.PokemonLoadAdapter
 import id.myone.pokemongame.viewmodel.ListViewModel
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokemonListFragment : BaseFragment<PokemonListFragmentBinding>() {
 
     private lateinit var adapter: PokemonListAdapter
-    private val viewModel by inject<ListViewModel>()
+    private val viewModel by viewModel<ListViewModel>()
 
     private val onClickListener = object : PokemonListAdapter.OnClickListener {
         override fun click(q: String) {

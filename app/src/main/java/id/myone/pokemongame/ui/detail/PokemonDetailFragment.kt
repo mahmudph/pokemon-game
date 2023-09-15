@@ -1,7 +1,6 @@
 package id.myone.pokemongame.ui.detail
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,14 +21,13 @@ import id.myone.pokemongame.utils.Event
 import id.myone.pokemongame.utils.UIState
 import id.myone.pokemongame.viewmodel.DetailViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokemonDetailFragment : BaseFragment<FragmentPokemonDetailBinding>() {
     private lateinit var abilityTabAdapter: AbilityTabAdapter
 
-    private val detailViewModel by inject<DetailViewModel>()
+    private val detailViewModel by viewModel<DetailViewModel>()
 
     override fun createBinding(
         inflater: LayoutInflater,
